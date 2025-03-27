@@ -25,8 +25,8 @@ function Connector() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
-                <Button size="lg" variant={address ? "outline" : "default"} asChild>
+            <DropdownMenuTrigger asChild>
+                <Button size="lg" variant={address ? "outline" : "default"}>
                     {address ? (
                         ensName ?? formatEthAddress(address)
                     ) : (

@@ -10,12 +10,12 @@ type TimerEvent = Phaser.Time.TimerEvent;
 const OFF_SCREEN_TIMEOUT = 3000; // 3 seconds in milliseconds
 
 // Variables changed by special items
-let COIN_GENERATION_INTERVAL = 4000;
-let PLAYER_SPEED_VARIABLE = 200;
-let GAME_SECONDS = 1000;
+const COIN_GENERATION_INTERVAL = 4000;
+const PLAYER_SPEED_VARIABLE = 200;
+const GAME_SECONDS = 1000;
 
 export class EthGame extends Scene {
-    cursors: any;
+    cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
     knight!: Knight;
     crates!: Phaser.Physics.Arcade.StaticGroup;
     coinTimer!: TimerEvent;
@@ -214,15 +214,24 @@ export class EthGame extends Scene {
         });
 
         this.physics.add.collider(this.coins, this.crates);
-        // @ts-ignore
-        this.physics.add.overlap(this.knight, this.coins, this.collectCoin, null, this);
+        this.physics.add.overlap(
+            this.knight,
+            this.coins,
+            this.collectCoin as unknown as Phaser.Types.Physics.Arcade.ArcadePhysicsCallback,
+            undefined,
+            this
+        );
     }
 
-    collectCoin(knight: Phaser.Physics.Arcade.Sprite, coin: Phaser.Physics.Arcade.Sprite) {
+    collectCoin(
+        knight: Phaser.Physics.Arcade.Sprite,
+        coin: Phaser.Physics.Arcade.Sprite
+    ) {
         coin.disableBody(true, true);
         this.score++;
         this.scoreText.setText("Coin Bag: " + this.score);
     }
+
 
     checkKnightPosition(knight: Knight): void {
         const knightBounds = knight.getBounds();

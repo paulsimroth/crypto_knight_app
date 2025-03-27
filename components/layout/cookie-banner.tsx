@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { event } from '@/lib/gtag';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
+import { X } from 'lucide-react';
 
 /**
  * COOKIE BANNER FOR GOOGLE ANALYTICS
@@ -22,7 +23,7 @@ export default function CookieBanner() {
     const [ruleState, setRuleState] = useState<boolean>(false);
 
     useEffect(() => {
-        const storedCookieConsent = getLocalStorage("cookie_consent", null);
+        const storedCookieConsent = getLocalStorage("cookie_consent", undefined);
         setCookieConsent(storedCookieConsent);
     }, []);
 
@@ -44,13 +45,27 @@ export default function CookieBanner() {
     }, [cookieConsent]);
 
     useEffect(() => {
-        const storedCookieConsent = getLocalStorage("gamerules_accepted", null);
+        const storedCookieConsent = getLocalStorage("gamerules_accepted", undefined);
         setRuleState(storedCookieConsent);
     }, []);
 
     useEffect(() => {
         setLocalStorage("gamerules_accepted", ruleState);
     }, [ruleState]);
+
+    function handleAllConsent() {
+        setCookieConsent({ adStorage: true, analyticsStorage: true });
+        event('cookieConsent', 'user_interaction', 'all');
+    }
+
+    function handleRequiredConsent() {
+        setCookieConsent({ adStorage: false, analyticsStorage: true });
+        event('cookieConsent', 'user_interaction', 'required');
+    }
+
+    function handleDeclineAll() {
+        setCookieConsent({ adStorage: false, analyticsStorage: false });
+    }
 
     return (
         <>
@@ -99,13 +114,15 @@ export default function CookieBanner() {
                         &quot;Accept (required only)&quot; only tracks the performance of the website. Visit the <Link href="/datapolicy" aria-label='Link to Data Policy' className='font-bold text-primary hover:underline duration-1000'>Data Policy</Link> for more information!
                     </p>
                 </div>
+                <Button onClick={() => handleDeclineAll()} className='top-1 right-1 absolute' variant={"link"} size={"icon"}>
+                    <X className="opacity-50" />
+                </Button>
                 <div className='flex flex-col gap-4 items-center justify-center w-fit'>
-                    <Button onClick={() => { setCookieConsent({ adStorage: true, analyticsStorage: true }), event('cookieConsent', 'user_interaction', 'all') }} className='p-5' aria-label='Allow All Cookies'>
+                    <Button onClick={() => handleAllConsent()} className='p-5' aria-label='Allow All Cookies'>
                         Accept All
                     </Button>
-                    <Button onClick={() => { setCookieConsent({ adStorage: false, analyticsStorage: true }), event('cookieConsent', 'user_interaction', 'required') }} variant="outline" className='flex flex-col items-center justify-center p-5' aria-label='Allow required Cookies'>
-                        Accept
-                        <span className='text-[10px]'>(required only)</span>
+                    <Button onClick={() => handleRequiredConsent()} variant="outline" className='flex flex-col items-center justify-center p-5' aria-label='Allow required Cookies'>
+                        Accept <span className='text-[10px]'>(required only)</span>
                     </Button>
                 </div>
             </div>

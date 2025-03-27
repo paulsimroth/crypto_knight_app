@@ -1,5 +1,6 @@
 'use client';
 import { pageview } from '@/lib/gtag';
+import { GAParams, GTagFunction } from '@/types/GoogleAnalytics';
 import { usePathname } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect } from 'react';
@@ -11,18 +12,12 @@ import { useEffect } from 'react';
  * pathname is only registered in this file
  * gtag events need to be added to every tracked interaction
  */
-
 declare global {
     interface Window {
-        gtag: any;
-        dataLayer?: Object[];
+        gtag: GTagFunction;
+        dataLayer?: object[];
     }
 }
-
-export type GAParams = {
-    gaId: string;
-    dataLayerName?: string;
-};
 
 function GoogleAnalytics(gaId: Readonly<GAParams>) {
 

@@ -19,38 +19,34 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { Github } from "lucide-react";
 
-const patchlogData = [
+const roadmapData = [
     {
-        title: 'Implementation Basic Gameplay',
-        description: 'Gameplay available. This update is the first version. Still without the core Web3 functionality',
-        date: new Date("2024-07-28"),
+        title: 'Project Kickoff',
+        description: 'Initial development and MVP, deployment of Token and Marketplace contract',
+        date: new Date("2024-07-01"),
     },
     {
-        title: 'Smart Contracts deployed to Testnet',
-        description: 'Smart Contracts deployed on Arbitrum Sepolia. Token: 0xCa7Db3644ba596205c41374162B7DD62e05b4615; NFT: 0x9FF9Ca3a8421723c22aA8F9930d7377CE8d83b21; Marketplace: 0x77d97e471e804494af0F8cFfd7e8B14C56E3f827',
-        date: new Date("2024-08-03"),
+        title: 'Release V1',
+        description: 'First playable version with core web3 mechanics, addition of special items and full marketplace functionality',
+        date: new Date("2024-08-01"),
     },
     {
-        title: 'Web3 functions',
-        description: 'Implementation of mint on game completion released.',
-        date: new Date("2024-08-05"),
-    },
-    {
-        title: 'Code update',
-        description: 'Updating code in preparation for new features.',
-        date: new Date("2025-03-27"),
+        title: 'Marketplace Integration',
+        description: 'After Implementing all other Web3 functionality the last step will be the integration of the Marketplace to buy, sell and merge items!',
+        date: undefined,
     }
 ];
 
-function Patchlog() {
+function Roadmap() {
     return (
         <Card className="m-5 w-full h-fit">
             <CardHeader>
                 <CardTitle className="text-2xl font-bold">
-                    Patchlog
+                    Roadmap
                 </CardTitle>
                 <CardDescription>
-                    Here you will find a list of all changes which happened to the gameplay or the smart contract archtitecture.
+                    Find out what feature will come next.
+                    Feel free to visit the Github repo and suggest your own ideas!
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -60,16 +56,17 @@ function Patchlog() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogTitle>Roadmap</DialogTitle>
                             <DialogDescription className="flex items-center justify-center">
-                                Here you will find a list of all changes which happened to the gameplay or the smart contract archtitecture.
+                                Find out what feature will come next.
+                                Feel free to visit the Github repo and suggest your own ideas!
                                 <Link href="https://github.com/paulsimroth/crypto_knight_app" target="_blank" aria-label='GitHub'>
                                     <Github className='py-2 w-[44px] h-[44px] object-contain cursor-pointer hover:scale-150 duration-300 transition-transform mx-4' />
                                 </Link>
                             </DialogDescription>
                         </DialogHeader>
-                        <div>
-                            <PatchlogList items={patchlogData} />
+                        <div className="">
+                            <RoadmapList items={roadmapData} />
                         </div>
                         <DialogFooter className="sm:justify-start">
                             <DialogClose asChild>
@@ -85,24 +82,24 @@ function Patchlog() {
     )
 };
 
-export default Patchlog;
+export default Roadmap;
 
-interface PatchlogData {
+interface RoadmapData {
     title: string;
     description: string;
-    date: Date;
+    date?: Date;
 }
 
-interface PatchlogProps {
-    items: PatchlogData[];
+interface RoadmapProps {
+    items: RoadmapData[];
 }
 
-function PatchlogList({ items }: Readonly<PatchlogProps>) {
+function RoadmapList({ items }: Readonly<RoadmapProps>) {
     return (
         <div className="p-4 max-h-[80vh] overflow-y-auto">
             {items.map((item, index) => (
-                <PatchlogItem
-                    key={item.title}
+                <RoadmapItem
+                    key={index}
                     title={item.title}
                     description={item.description}
                     date={item.date}
@@ -114,14 +111,14 @@ function PatchlogList({ items }: Readonly<PatchlogProps>) {
 };
 
 
-interface PatchlogItemProps {
+interface RoadmapItemProps {
     title: string;
     description: string;
-    date: Date;
+    date?: Date;
     isLast?: boolean;
 }
 
-function PatchlogItem({ title, description, date, isLast = false }: PatchlogItemProps) {
+function RoadmapItem({ title, description, date, isLast = false }: Readonly<RoadmapItemProps>) {
     return (
         <div className="flex items-center mb-8">
             <div className="flex flex-col items-center mr-4">
@@ -132,10 +129,10 @@ function PatchlogItem({ title, description, date, isLast = false }: PatchlogItem
                 <div className="flex items-center justify-start gap-8">
                     <h3 className="text-lg font-semibold mb-1">{title}</h3>
                     <span className="text-xs text-gray-400">
-                        {new Date(date).toLocaleDateString("en", {
+                        {date ? new Date(date).toLocaleDateString("en", {
                             month: "long",
                             year: "numeric",
-                        })}
+                        }) : <p>TBD</p>}
                     </span>
                 </div>
                 <p className="text-sm text-gray-600 mb-1">{description}</p>

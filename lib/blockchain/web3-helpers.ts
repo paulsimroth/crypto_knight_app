@@ -1,4 +1,4 @@
-export function weiToEther(wei: BigInt | number | undefined): number {
+export function weiToEther(wei: bigint | number | undefined): number {
     if (!wei) {
         return 0;
     }

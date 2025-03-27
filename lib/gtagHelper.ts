@@ -1,3 +1,4 @@
+import { ConsentState } from '@/types/GoogleAnalytics';
 import 'client-only';
 
 /**
@@ -6,7 +7,7 @@ import 'client-only';
  * install "client-only" and "@types/gtag.js" npm packages for using Google Analytics
 */
 
-export function getLocalStorage(key: string, defaultValue: any) {
+export function getLocalStorage(key: string, defaultValue: ConsentState | boolean | undefined) {
     const stickyValue = localStorage.getItem(key);
 
     return (stickyValue !== null && stickyValue !== 'undefined')
@@ -14,6 +15,6 @@ export function getLocalStorage(key: string, defaultValue: any) {
         : defaultValue;
 };
 
-export function setLocalStorage(key: string, value: any) {
+export function setLocalStorage(key: string, value: ConsentState | boolean | undefined) {
     localStorage.setItem(key, JSON.stringify(value));
 };
