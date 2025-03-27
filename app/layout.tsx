@@ -4,6 +4,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import WagmiClientWrapper from "@/components/wagmi-provider";
 import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
+import CookieBanner from "@/components/layout/cookie-banner";
+import { Toaster } from "@/components/ui/sonner";
+import GoogleAnalytics from "@/components/layout/google-analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,7 +75,11 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
+            <Footer />
+            <Toaster />
+            <CookieBanner />
           </ThemeProvider>
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         </body>
       </WagmiClientWrapper>
     </html>
