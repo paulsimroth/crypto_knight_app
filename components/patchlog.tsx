@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Github } from "lucide-react";
 
 const patchlogData = [
     {
@@ -64,7 +63,7 @@ function Patchlog() {
                             <DialogDescription className="flex items-center justify-center">
                                 Here you will find a list of all changes which happened to the gameplay or the smart contract archtitecture.
                                 <Link href="https://github.com/paulsimroth/crypto_knight_app" target="_blank" aria-label='GitHub'>
-                                    <Github className='py-2 w-[44px] h-[44px] object-contain cursor-pointer hover:scale-150 duration-300 transition-transform mx-4' />
+                                    GitHub
                                 </Link>
                             </DialogDescription>
                         </DialogHeader>

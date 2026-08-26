@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Github } from "lucide-react";
 
 const roadmapData = [
     {
@@ -61,7 +60,7 @@ function Roadmap() {
                                 Find out what feature will come next.
                                 Feel free to visit the Github repo and suggest your own ideas!
                                 <Link href="https://github.com/paulsimroth/crypto_knight_app" target="_blank" aria-label='GitHub'>
-                                    <Github className='py-2 w-[44px] h-[44px] object-contain cursor-pointer hover:scale-150 duration-300 transition-transform mx-4' />
+                                    GitHub
                                 </Link>
                             </DialogDescription>
                         </DialogHeader>

@@ -3,9 +3,10 @@ import { Suspense, useRef } from "react";
 import Image from "next/image";
 import { IRefPhaserGame } from "./eth_game/Game";
 import dynamic from "next/dynamic";
-import { useAccount, useBalance } from "wagmi";
+import { useConnection, useReadContract } from "wagmi";
 import { getChainInfo } from "@/lib/blockchain/web3-config";
 import { weiToEther } from "@/lib/blockchain/web3-helpers";
+import { erc20Abi } from "viem";
 
 const EthGameComponent = dynamic(() => import('./eth_game/Game').then((mod) => mod.EthGameComponent), {
     ssr: false,
@@ -14,11 +15,14 @@ const EthGameComponent = dynamic(() => import('./eth_game/Game').then((mod) => m
 function GameComponent() {
     //  References to the PhaserGame component (game and scene are exposed)
     const phaserRef = useRef<IRefPhaserGame | null>(null);
-    const { address, chainId } = useAccount();
-    const balanceOf = useBalance({
-        address: address,
-        token: getChainInfo(chainId || 421614).tokenContract
-    })
+    const { address, chainId } = useConnection();
+    const balanceOf = useReadContract({
+        address: getChainInfo(chainId || 421614).tokenContract,
+        abi: erc20Abi,
+        functionName: "balanceOf",
+        args: address ? [address] : undefined,
+        query: { enabled: !!address },
+    });
 
     return (
         <>
@@ -45,7 +49,7 @@ function GameComponent() {
             </div>
             <div className="w-[80%] max-w-[1000px]">
                 <p>
-                    Your current token balance: {balanceOf ? weiToEther(balanceOf.data?.value) : 0}
+                    Your current token balance: {balanceOf.data ? weiToEther(balanceOf.data) : 0}
                 </p>
             </div>
         </>
