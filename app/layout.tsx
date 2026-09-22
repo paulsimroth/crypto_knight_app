@@ -3,14 +3,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import WagmiClientWrapper from "@/components/wagmi-provider";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
-import CookieBanner from "@/components/layout/cookie-banner";
 import { Toaster } from "@/components/ui/sonner";
-import GoogleAnalytics from "@/components/layout/google-analytics";
 import "./globals.css";
+import { GameRules } from "@/components/game-rules";
 
 export const metadata: Metadata = {
   title: "Crypto Knight | A Web3 Game",
-  description: "Start your adventure and collect coins. Trade them for epic items and make your knight stronger",
+  description:
+    "Start your adventure and collect coins. Trade them for epic items and make your knight stronger",
   authors: [{ name: `Paul Simroth`, url: `https://www.paulsimroth.at/` }],
   creator: `Paul Simroth`,
   publisher: `Paul Simroth`,
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
     url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
     siteName: "Crypto Knight | A Web3 Game",
     type: "website",
-    locale: "en"
+    locale: "en",
   },
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       noimageindex: false,
-    }
+    },
   },
   verification: {
     google: "",
   },
   icons: {
     icon: "/favicon.ico?v=1",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -53,26 +53,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <WagmiClientWrapper>
-        <body
-          className='h-[100vh] flex flex-col items-center justify-between'
-        >
+        <body className="h-screen flex flex-col items-center justify-between">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <div className="h-[100vh] w-[100vw] flex flex-col items-center justify-between">
+            <div className="h-screen w-screen flex flex-col items-center justify-between">
               <Navbar />
-              <main className='flex flex-col items-center justify-center bg-background h-fit'>
+              <main className="flex flex-col items-center justify-center bg-background h-fit">
                 {children}
               </main>
               <Footer />
             </div>
             <Toaster />
-            <CookieBanner />
+            <GameRules />
           </ThemeProvider>
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         </body>
       </WagmiClientWrapper>
     </html>

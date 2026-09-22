@@ -9,7 +9,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { event } from "@/lib/gtag";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "./ui/button";
 import { Asterisk, Loader2, Mail, Send } from "lucide-react";
@@ -47,7 +46,6 @@ function ContactForm() {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        event("submitContactForm", "user_interaction", "submitContactForm");
         setProcessing(true);
         setFormState((prev) => ({
             ...prev,

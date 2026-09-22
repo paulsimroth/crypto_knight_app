@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
-import { event } from '@/lib/gtag';
 import { GAME_HEIGHT, GAME_WIDTH } from '../main';
 import { mintScore } from '@/service/mint-score';
 
@@ -185,7 +184,6 @@ export class EthGame extends Scene {
                 this.coinsSent = true;
                 if (this.address && this.chainId) {
                     await mintScore(this.score, this.address, this.chainId);
-                    event("crypto_knights", "main_game", "finished_mint", this.score);
                 }
             }
             EventBus.emit('game_finished', this);
@@ -246,7 +244,6 @@ export class EthGame extends Scene {
             if (this.offScreenTimer === null) {
                 this.offScreenTimer = this.time.delayedCall(OFF_SCREEN_TIMEOUT, () => {
                     console.log("Game over: Knight was off-screen for too long!");
-                    event("crypto_knights", "main_game", "screen_exit_failed", this.score);
                     this.scene.pause();
 
                     if (this.gameOverText) {

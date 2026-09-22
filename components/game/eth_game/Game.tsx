@@ -3,7 +3,6 @@ import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import StartGame from './main';
 import { EventBus } from './EventBus';
 import { useAccount } from 'wagmi';
-import { event } from '@/lib/gtag';
 
 export interface IRefPhaserGame {
     game: Phaser.Game | null;
@@ -22,7 +21,6 @@ export const EthGameComponent = forwardRef<IRefPhaserGame, IProps>(function Phas
     useLayoutEffect(() => {
         if (typeof window !== 'undefined' && game.current === null && address && chainId) { // Ensure window is defined
             game.current = StartGame("game-container", { address, chainId });
-            event("crypto_knights", "main_game", "loaded", chainId);
             if (typeof ref === 'function') {
                 ref({ game: game.current, scene: null });
             } else if (ref) {

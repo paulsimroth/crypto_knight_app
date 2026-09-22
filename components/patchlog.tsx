@@ -59,7 +59,7 @@ function Patchlog() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogTitle>Patchlog</DialogTitle>
                             <DialogDescription className="flex items-center justify-center">
                                 Here you will find a list of all changes which happened to the gameplay or the smart contract archtitecture.
                                 <Link href="https://github.com/paulsimroth/crypto_knight_app" target="_blank" aria-label='GitHub'>

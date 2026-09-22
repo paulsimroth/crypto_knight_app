@@ -29,18 +29,12 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.102.3
         version: 5.102.3(react@19.2.8)
-      '@types/gtag.js':
-        specifier: ^0.0.20
-        version: 0.0.20
       '@types/nodemailer':
         specifier: ^8.0.1
         version: 8.0.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
-      client-only:
-        specifier: ^0.0.1
-        version: 0.0.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1041,9 +1035,6 @@ packages:
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
-
-  '@types/gtag.js@0.0.20':
-    resolution: {integrity: sha512-wwAbk3SA2QeU67unN7zPxjEHmPmlXwZXZvQEpbEUQuMCRGgKyE1m6XDuTUA9b6pCGb/GqJmdfMOY5LuDjJSbbg==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -4514,8 +4505,6 @@ snapshots:
   '@types/esrecurse@4.3.1': {}
 
   '@types/estree@1.0.9': {}
-
-  '@types/gtag.js@0.0.20': {}
 
   '@types/json-schema@7.0.15': {}
 
